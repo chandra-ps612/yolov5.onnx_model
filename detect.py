@@ -5,9 +5,9 @@ import argparse
 ''' This particular code is for onnx model of yolov5 algorithm.'''
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--webcam', help='True/False', default=True)
-parser.add_argument('--play_video', help='True/False', default=False)
-parser.add_argument('--image', help='True/False', default=False)
+parser.add_argument('--webcam', help='True/False', default=False)
+parser.add_argument('--video_feed', help='True/False', default=False)
+parser.add_argument('--image', help='True/False', default=True)
 parser.add_argument('--video_path', help='Path of video file', default='C:\\Users\\lav singh\\AppData\\Local\\Programs\\Python\\Python39\\exp_2\\yolov5.onnx_model\\terrorist.mp4')
 parser.add_argument('--image_path', help='path of image file', default='C:\\Users\\lav singh\\AppData\\Local\\Programs\\Python\\Python39\\exp_2\\yolov5.onnx_model\\test.jpg')
 parser.add_argument('--verbose', help='To print statements', default=True)
@@ -145,20 +145,20 @@ def video_detection(videoPath):
 
 if __name__ == '__main__':
 	webcam = args.webcam
-	video_play = args.play_video
+	video_feed = args.video_feed
 	image = args.image
 	if webcam:
 		if args.verbose:
-			print('---- Starting Web Cam object detection ----')
+			print('---Starting Webcam object detection---')
 		webcam_detection()
-	if video_play:
+	if video_feed:
 		videoPath = args.video_path
 		if args.verbose:
-			print('Opening '+videoPath+" .... ")
+			print(f'Opening {videoPath}')
 		start_video(videoPath)
 	if image:
 		imagePath = args.image_path
 		if args.verbose:
-			print("Opening "+imagePath+" .... ")
+			print(f'Opening {imagePath}')
 		image_detection(imagePath)
 	cv2.destroyAllWindows()
