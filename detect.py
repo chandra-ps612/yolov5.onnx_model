@@ -123,6 +123,7 @@ def webcam_detection():
     cap.release()
 
 def video_detection(videoPath):
+    create=None
     net, classes, output_layers= load_yolo()
     cap= start_video(videoPath)
     while True:
@@ -132,10 +133,15 @@ def video_detection(videoPath):
         blob, outputs= pre_process(frame, net, output_layers)
         class_ids, confs, boxes= get_box_dimensions(outputs, width, height)
         draw_labels(boxes, confs, class_ids, classes, frame)
+        if create is None:
+            fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+            create = cv2.VideoWriter(output_videoPath, fourcc, 10, (1920, 1080), True)
+        create.write(frame)
         key=cv2.waitKey(1) # It'll generate a new frame after every 1 ms.
         if key==ord('q'):
             break
     cap.release()
+    create.release()
 
 if __name__ == '__main__':
 	webcam = args.webcam
